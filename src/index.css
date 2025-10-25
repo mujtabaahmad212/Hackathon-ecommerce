@@ -1,0 +1,114 @@
+/* index.css - Purple/White Theme with Animations */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --primary-color: #7B4397; /* Deep Royal Purple */
+  --secondary-color: #BC4E9C; /* Magenta/Rose */
+  --light-color: #F8F4FF; /* Off-White/Lavender Light */
+  --dark-bg: #1A0D2A; /* Very Dark Purple Background */
+  --card-bg: #271442; /* Slightly lighter card background */
+  --text-color: var(--light-color);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  overflow-x: hidden; /* Prevent horizontal scroll from background */
+}
+
+/* Animated Background (Subtle Pulsing Gradient) */
+#root {
+  min-height: 100vh;
+  background: linear-gradient(-45deg, var(--dark-bg) 0%, #11081a 50%, var(--dark-bg) 100%);
+  background-size: 400% 400%;
+  animation: backgroundPulse 15s ease infinite;
+}
+
+@keyframes backgroundPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Custom Bootstrap Overrides */
+.navbar {
+  background-color: var(--card-bg) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--light-color) !important;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--secondary-color) !important;
+}
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color) !important; 
+  border-color: var(--secondary-color) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(123, 67, 151, 0.5);
+}
+
+/* Card and Element Floating/Hover Animation */
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+  /* subtle continuous floating animation */
+  animation: float 6s ease-in-out infinite; 
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(188, 78, 156, 0.4);
+}
+
+@keyframes float {
+	0% { transform: translateY(0px); }
+	50% { transform: translateY(-5px); }
+	100% { transform: translateY(0px); }
+}
+
+/* Form Styling */
+.form-control, .form-select, .form-range {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--light-color);
+}
+.form-control:focus, .form-select:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 0.25rem rgba(188, 78, 156, 0.5); 
+  color: var(--light-color);
+}
+.form-label {
+    color: var(--light-color);
+    font-weight: 500;
+}
+.text-primary { color: var(--primary-color) !important; }
+.text-secondary-custom { color: var(--secondary-color) !important; }
+
+/* Badge Pulse for Cart */
+.pulse-animation {
+    animation: pulse 1s infinite;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
