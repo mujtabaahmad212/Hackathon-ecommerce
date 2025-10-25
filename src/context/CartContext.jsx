@@ -61,15 +61,28 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
   };
 
-  const removeFromCart = (productId) => {
-    dispatch({ type: 'REMOVE_FROM_CART', payload: productId });
+  // MODIFIED: Added callback for loading state handling (simulates server delay)
+  const removeFromCart = (productId, callback) => {
+    // Simulate server request delay
+    setTimeout(() => {
+      dispatch({ type: 'REMOVE_FROM_CART', payload: productId });
+      if (callback) callback(false); // Hide loader
+    }, 500);
   };
 
-  const updateQuantity = (productId, quantity) => {
-    if (quantity < 1) return;
-    dispatch({ type: 'UPDATE_QUANTITY', payload: { id: productId, quantity } });
+  // MODIFIED: Added callback for loading state handling (simulates server delay)
+  const updateQuantity = (productId, quantity, callback) => {
+    if (quantity < 1) {
+      if (callback) callback(false); 
+      return;
+    }
+    // Simulate server request delay
+    setTimeout(() => {
+      dispatch({ type: 'UPDATE_QUANTITY', payload: { id: productId, quantity } });
+      if (callback) callback(false); // Hide loader
+    }, 500);
   };
-
+  
   const clearCart = () => {
     dispatch({ type: 'CLEAR_CART' });
   };

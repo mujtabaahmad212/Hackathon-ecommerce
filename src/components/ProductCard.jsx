@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { FaShippingFast, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { BiBot } from 'react-icons/bi'; 
+import { toast } from 'react-toastify'; 
+
+// --- CONSTANTS ---
+const SHORT_TITLE_LENGTH = 30; // Max length for the short title
+const SHORT_DESCRIPTION_LENGTH = 70; // Max length for the short description
+// -----------------
 
 // Simulated AI Assistant function 
 const assistantRefineDescription = (title) => {
@@ -25,9 +31,6 @@ const getDeliveryEstimate = (city) => {
     return "";
 }
 
-// CONSTANT FOR SHORT DESCRIPTION LENGTH
-const SHORT_DESCRIPTION_LENGTH = 70;
-
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
   const [currentDescription, setCurrentDescription] = useState(product.description);
@@ -47,6 +50,18 @@ export default function ProductCard({ product }) {
       setDeliveryEstimate(getDeliveryEstimate(deliveryCity));
   };
   
+  const handleAddToCart = () => {
+      addToCart(product);
+      toast.success(`${product.title} added to cart!`, {
+          icon: "🛒"
+      });
+  };
+  
+  // --- NEW LOGIC FOR SHORTENING/EXPANDING ---
+  const shortTitle = product.title.length > SHORT_TITLE_LENGTH 
+    ? product.title.substring(0, SHORT_TITLE_LENGTH) + '...'
+    : product.title;
+
   const shortDescription = currentDescription.length > SHORT_DESCRIPTION_LENGTH 
     ? currentDescription.substring(0, SHORT_DESCRIPTION_LENGTH) + '...'
     : currentDescription;
@@ -54,6 +69,7 @@ export default function ProductCard({ product }) {
   const toggleDescription = () => {
       setIsDescriptionExpanded(!isDescriptionExpanded);
   };
+  // ------------------------------------------
 
   return (
     <div className="card h-100 overflow-hidden">
@@ -68,15 +84,21 @@ export default function ProductCard({ product }) {
         />
       </div>
       <div className="card-body d-flex flex-column">
-        <h5 className="card-title text-primary fw-bold text-truncate">{product.title}</h5>
+        {/* CONDITIONAL TITLE DISPLAY */}
+        <h5 
+            className="card-title text-primary fw-bold" 
+            style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: isDescriptionExpanded ? 'normal' : 'nowrap' }}
+        >
+            {isDescriptionExpanded ? product.title : shortTitle}
+        </h5>
         
-        {/* Shortened Description Display */}
+        {/* DESCRIPTION DISPLAY */}
         <p className="card-text text-muted mb-2">
             {isDescriptionExpanded ? currentDescription : shortDescription}
         </p>
         
         {/* Toggle Button for Read More/Less */}
-        {currentDescription.length > SHORT_DESCRIPTION_LENGTH && (
+        {(currentDescription.length > SHORT_DESCRIPTION_LENGTH || product.title.length > SHORT_TITLE_LENGTH) && (
             <button 
                 className="btn btn-link btn-sm p-0 text-accent-bold text-start mb-3"
                 onClick={toggleDescription}
@@ -84,7 +106,7 @@ export default function ProductCard({ product }) {
             >
                 {isDescriptionExpanded ? (
                     <>
-                        <FaChevronUp size={10} className="me-1"/> Read Less
+                        <FaChevronUp size={10} className="me-1"/> Show Less
                     </>
                 ) : (
                     <>
@@ -94,44 +116,50 @@ export default function ProductCard({ product }) {
             </button>
         )}
         
-        {/* Delivery Estimation Feature */}
-        <div className="mt-auto pt-3 border-top border-secondary-custom">
-            <div className="input-group input-group-sm mb-1">
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="City Name"
-                    value={deliveryCity}
-                    onChange={(e) => setDeliveryCity(e.target.value)}
-                />
-                <button 
-                    className="btn btn-primary" 
-                    type="button"
-                    onClick={handleCheckDelivery}
-                    title="Check Delivery"
-                >
-                    <FaShippingFast />
-                </button>
+        {/* DELIVERY ESTIMATION FEATURE: Hidden when expanded to save space */}
+        {!isDescriptionExpanded && (
+            <div className="mt-auto pt-3 border-top border-secondary-custom">
+                <div className="input-group input-group-sm mb-1">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="City Name"
+                        value={deliveryCity}
+                        onChange={(e) => setDeliveryCity(e.target.value)}
+                    />
+                    <button 
+                        className="btn btn-primary" 
+                        type="button"
+                        onClick={handleCheckDelivery}
+                        title="Check Delivery"
+                    >
+                        <FaShippingFast />
+                    </button>
+                </div>
+                <p className={`small fw-bold mb-3 ${deliveryEstimate ? 'text-accent-bold' : 'text-muted'}`}>
+                    Shipping: {deliveryEstimate || "Check Delivery Time"}
+                </p>
             </div>
-            <p className={`small fw-bold mb-3 ${deliveryEstimate ? 'text-accent-bold' : 'text-muted'}`}>
-                Shipping: {deliveryEstimate || "Check Delivery Time"}
-            </p>
-        </div>
+        )}
 
         <p className="fw-bolder fs-4 text-accent-bold mt-2">PKR {pricePKR}</p>
           
         <button
             className="btn btn-primary w-100 mb-2"
-            onClick={() => addToCart(product)}
+            onClick={handleAddToCart}
         >
             🛒 Add to Cart
         </button>
-        <button
-            className="btn btn-outline-dark w-100 btn-sm"
-            onClick={handleRefineDescription}
-        >
-            <BiBot className="me-1 text-primary"/> AI Assistant Refine
-        </button>
+
+        {/* AI ASSISTANT BUTTON: Hidden when expanded to save space */}
+        {!isDescriptionExpanded && (
+            <button
+                className="btn btn-outline-dark w-100 btn-sm"
+                onClick={handleRefineDescription}
+            >
+                <BiBot className="me-1 text-primary"/> AI Assistant Refine
+            </button>
+        )}
       </div>
     </div>
   );

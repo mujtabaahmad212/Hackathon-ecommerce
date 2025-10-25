@@ -6,8 +6,10 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import { Spinner } from 'react-bootstrap'; 
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
-// --- New Loading Overlay Component ---
+// --- Full-Page Loading Overlay Component ---
 const LoadingOverlay = ({ isLoading }) => {
   const [showOverlay, setShowOverlay] = useState(true);
 
@@ -30,13 +32,12 @@ const LoadingOverlay = ({ isLoading }) => {
     </div>
   );
 };
-// -------------------------------------
+// ---------------------------------------------
 
 
 function App() {
   const [appLoading, setAppLoading] = useState(true);
 
-  // Function to be called by Home component when it successfully fetches data
   const handleAppLoaded = () => {
     setAppLoading(false);
   }
@@ -45,10 +46,23 @@ function App() {
     <Router>
       <LoadingOverlay isLoading={appLoading} /> 
       
+      {/* TOAST CONTAINER: For all global notifications */}
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light" 
+      />
+      
       <CartProvider>
         <Header />
         <Routes>
-          {/* Pass the loading handler down to Home */}
           <Route path="/" element={<Home onDataLoaded={handleAppLoaded} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />

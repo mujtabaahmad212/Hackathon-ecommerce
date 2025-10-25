@@ -10,7 +10,7 @@ export default function Header() {
     <nav className="navbar navbar-expand-lg navbar-dark sticky-top">
       <div className="container">
         <Link className="navbar-brand fs-4 fw-bold" to="/">
-          <span className="text-primary">Mujtaba</span><span className="text-light">Ahmad</span>
+          <span className="text-primary">Mujtaba Ahmad</span>
         </Link>
         <div className="navbar-nav ms-auto align-items-center">
           <Link className="nav-link mx-2" to="/">Home</Link>
