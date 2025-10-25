@@ -126,6 +126,9 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     color: var(--text-color-light);
     padding: 100px 0;
+  
+
+    border-radius: 2rem;
     margin-bottom: 40px;
     animation: fadeIn 1.5s ease-out forwards;
 }
@@ -178,3 +181,4 @@ body {
     border-color: #E0E0E0 !important;
     color: var(--text-color-dark) !important;
 }
+
