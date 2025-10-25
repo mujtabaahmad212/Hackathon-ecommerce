@@ -10,7 +10,7 @@ export default function Header() {
     <nav className="navbar navbar-expand-lg navbar-dark sticky-top">
       <div className="container">
         <Link className="navbar-brand fs-4 fw-bold" to="/">
-          <span className="text-secondary-custom">Future</span><span className="text-light">Store</span> 🌌
+          <span className="text-accent-bold">Bazaar</span><span className="text-light">.pk</span> 🇵🇰
         </Link>
         <div className="navbar-nav ms-auto align-items-center">
           <Link className="nav-link mx-2" to="/">Home</Link>
@@ -25,7 +25,7 @@ export default function Header() {
             </span>
           </Link>
           <Link className="nav-link btn btn-primary btn-sm ms-3 px-3" to="/checkout">
-            Checkout
+            Check-out
           </Link>
         </div>
       </div>

@@ -4,7 +4,6 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
-import './App.css';
 
 function App() {
   return (
@@ -21,4 +20,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
