@@ -1,14 +1,14 @@
-/* src/index.css - Pakistani Truck Art Theme */
+/* src/index.css - Pakistani Truck Art Theme with Animations */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
 
 :root {
   --primary-color: #006633; /* Emerald Green (National Color) */
   --secondary-color: #FFFFFF; /* White */
-  --accent-color-bold: #FFCC00; /* Truck Art Yellow */
+  --accent-color-bold: #FFCC00; /* Truck Art Yellow (High Visibility) */
   --dark-bg: #101010; /* Near Black/Darkest Green */
-  --card-bg: #222222; /* Dark Gray for Card */
+  --card-bg: #2d2d2d; /* Slightly Lighter Dark Gray for better contrast */
   --text-color: var(--secondary-color);
-  --error-color: #D93025; /* Red for emphasis */
+  --error-color: #D93025;
 }
 
 body {
@@ -18,14 +18,38 @@ body {
   overflow-x: hidden;
 }
 
-/* Animated Background (Subtle Gradient) */
+/* --- BACKGROUND ANIMATION (Infinite Floating Objects) --- */
 #root {
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, var(--dark-bg) 0%, #004d26 50%, var(--dark-bg) 100%);
-  background-size: 400% 400%;
-  animation: backgroundPulse 15s ease infinite;
+  z-index: 1;
 }
 
+#root::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Use a repeating linear-gradient for simulated animated items */
+    background-image: 
+        radial-gradient(var(--accent-color-bold) 1px, transparent 0),
+        radial-gradient(var(--primary-color) 1px, transparent 0);
+    background-size: 50px 50px;
+    opacity: 0.1;
+    animation: moveBackground 60s linear infinite;
+    z-index: -1;
+}
+
+@keyframes moveBackground {
+    from { background-position: 0 0; }
+    to { background-position: 5000px 5000px; }
+}
+
+/* Original background pulse */
 @keyframes backgroundPulse {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -39,44 +63,28 @@ body {
   border-bottom: 3px solid var(--primary-color);
 }
 
-.navbar-brand,
-.nav-link {
-  color: var(--secondary-color) !important;
-  transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-  color: var(--primary-color) !important;
-}
-
-.btn-primary {
-  background-color: var(--primary-color) !important;
-  border-color: var(--primary-color) !important;
-  font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.btn-primary:hover {
-  background-color: #008040 !important; 
-  border-color: #008040 !important;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 102, 51, 0.5);
-}
-
-/* Truck Art Border and Card Animation */
+/* --- Card Fade-In and Animation --- */
 .card {
   background-color: var(--card-bg);
   color: var(--text-color);
-  border: 4px solid var(--accent-color-bold); /* Bold Yellow Border */
+  border: 4px solid var(--accent-color-bold);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
-  animation: float 8s ease-in-out infinite; 
+  animation: float 8s ease-in-out infinite, fadeIn 1s ease-out forwards; 
   border-radius: 12px;
+  /* Ensure proper visibility for text inside cards */
+  color: var(--secondary-color);
+}
+
+/* Fade In Keyframe */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(255, 204, 0, 0.5); /* Yellow glow on hover */
+  box-shadow: 0 15px 30px rgba(255, 204, 0, 0.5);
 }
 
 @keyframes float {
@@ -85,34 +93,23 @@ body {
     100% { transform: translateY(0px); }
 }
 
-/* Form Styling */
+/* Form Styling - Increased Contrast */
 .form-control, .form-select, .form-range {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2); /* Increased opacity for better visibility */
   border: 1px solid var(--primary-color);
   color: var(--text-color);
 }
 .form-control:focus, .form-select:focus {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.3); /* Further increase contrast on focus */
   border-color: var(--accent-color-bold);
   box-shadow: 0 0 0 0.25rem rgba(255, 204, 0, 0.5); 
   color: var(--text-color);
 }
-.form-label {
-    color: var(--secondary-color);
-    font-weight: 500;
-}
+
+/* Text Colors */
 .text-primary { color: var(--primary-color) !important; }
 .text-accent-bold { color: var(--accent-color-bold) !important; }
-
-/* Badge Pulse for Cart */
-.pulse-animation {
-    animation: pulse 1s infinite;
-}
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-}
+.text-light, .text-secondary { color: var(--secondary-color) !important; }
 
 /* Hero Section Styles */
 .hero-section {
@@ -121,6 +118,7 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     padding: 80px 0;
     margin-bottom: 40px;
+    animation: fadeIn 1.5s ease-out forwards; /* Fade in Hero */
 }
 
 .hero-btn {
@@ -141,4 +139,23 @@ body {
 
 .form-control.city-input {
     border-left: 5px solid var(--accent-color-bold);
+}
+
+/* Badge Pulse for Cart */
+.pulse-animation {
+    animation: pulse 1s infinite;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+/* Ensure all links and buttons are visible */
+a, button {
+    font-weight: 600 !important;
+}
+
+.list-group-item {
+    border-color: rgba(255, 255, 255, 0.2) !important; /* Lighter border for better separation */
 }

@@ -20,9 +20,7 @@ export default function Home() {
       const data = await response.json();
       setProducts(data);
       
-      // Get unique categories for the filter
       const uniqueCategories = ['all', ...new Set(data.map(p => p.category))];
-      // Capitalize first letter for display
       setCategories(uniqueCategories.map(c => c.charAt(0).toUpperCase() + c.slice(1))); 
 
     } catch (error) {
@@ -68,7 +66,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - Uses global CSS fadeIn */}
       <div className="hero-section text-center">
         <div className="container">
           <h1 className="display-3 fw-bolder text-light mb-3">
@@ -145,8 +143,13 @@ export default function Home() {
         </div>
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
           {finalProducts.length > 0 ? (
-            finalProducts.map(product => (
-              <div key={product.id} className="col">
+            finalProducts.map((product, index) => (
+              // Apply inline style for staggered animation delay
+              <div 
+                key={product.id} 
+                className="col"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <ProductCard product={product} /> 
               </div>
             ))

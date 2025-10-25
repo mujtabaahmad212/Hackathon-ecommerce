@@ -43,6 +43,7 @@ export default function ProductCard({ product }) {
   };
 
   return (
+    // The animation class is applied via CSS globally to the .card element
     <div className="card h-100 overflow-hidden truck-art-border">
       <div className="p-3 text-center" style={{ height: '200px' }}>
         <img
@@ -56,7 +57,7 @@ export default function ProductCard({ product }) {
       </div>
       <div className="card-body d-flex flex-column">
         <h5 className="card-title text-accent-bold fw-bold text-truncate">{product.title}</h5>
-        <p className="card-text text-truncate opacity-75">{currentDescription}</p> 
+        <p className="card-text text-truncate text-secondary opacity-75">{currentDescription}</p> 
         <div className="mt-auto pt-3 border-top border-secondary-custom opacity-50">
           <p className="fw-bolder fs-4 text-light">PKR {pricePKR}</p>
           
