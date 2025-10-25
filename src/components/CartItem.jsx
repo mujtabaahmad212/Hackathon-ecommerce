@@ -7,7 +7,7 @@ export default function CartItem({ item }) {
   const totalItemPricePKR = (item.price * item.quantity * 280).toFixed(0);
 
   return (
-    <div className="card mb-3 shadow-lg truck-art-border">
+    <div className="card mb-3 shadow-lg">
       <div className="row g-0 align-items-center">
         <div className="col-md-2 p-2 text-center">
           <img
@@ -20,12 +20,12 @@ export default function CartItem({ item }) {
         <div className="col-md-10">
           <div className="card-body p-3">
             <div className="d-flex justify-content-between align-items-start">
-              <h5 className="card-title text-accent-bold">{item.title}</h5>
+              <h5 className="card-title text-primary">{item.title}</h5>
               <button
                 className="btn btn-outline-danger btn-sm"
                 onClick={() => removeFromCart(item.id)}
               >
-                <BsTrash /> Hatao (Remove)
+                <BsTrash /> Remove
               </button>
             </div>
             <p className="card-text text-light fw-bold fs-5">PKR {totalItemPricePKR}</p>

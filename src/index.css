@@ -1,220 +1,78 @@
-/* src/index.css - Pakistani Truck Art Theme with Animations */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
-
-:root {
-  --primary-color: #006633; /* Emerald Green (National Color) */
-  --secondary-color: #FFFFFF; /* White */
-  --accent-color-bold: #FFCC00; /* Truck Art Yellow (High Visibility) */
-  --dark-bg: #101010; /* Near Black/Darkest Green */
-  --card-bg: #2d2d2d; /* Slightly Lighter Dark Gray for better contrast */
-  --text-color: var(--secondary-color);
-  --error-color: #D93025;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--dark-bg);
-  color: var(--text-color);
-  overflow-x: hidden;
-}
-
-/* --- BACKGROUND ANIMATION (Infinite Floating Objects) --- */
-#root {
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--dark-bg) 0%, #004d26 50%, var(--dark-bg) 100%);
-  z-index: 1;
-}
-
-#root::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Use a repeating linear-gradient for simulated animated items */
-    background-image: 
-        radial-gradient(var(--accent-color-bold) 1px, transparent 0),
-        radial-gradient(var(--primary-color) 1px, transparent 0);
-    background-size: 50px 50px;
-    opacity: 0.1;
-    animation: moveBackground 60s linear infinite;
-    z-index: -1;
-}
-
-@keyframes moveBackground {
-    from { background-position: 0 0; }
-    to { background-position: 5000px 5000px; }
-}
-
-/* Original background pulse */
-@keyframes backgroundPulse {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Custom Bootstrap Overrides */
-.navbar {
-  background-color: var(--card-bg) !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  border-bottom: 3px solid var(--primary-color);
-}
-
-/* --- Card Fade-In and Animation --- */
-.card {
-  background-color: var(--card-bg);
-  color: var(--text-color);
-  border: 4px solid var(--accent-color-bold);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
-  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
-  animation: float 8s ease-in-out infinite, fadeIn 1s ease-out forwards; 
-  border-radius: 12px;
-  /* Ensure proper visibility for text inside cards */
-  color: var(--secondary-color);
-}
-
-/* Fade In Keyframe */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(255, 204, 0, 0.5);
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0px); }
-}
-
-/* Form Styling - Increased Contrast */
-.form-control, .form-select, .form-range {
-  background-color: rgba(255, 255, 255, 0.2); /* Increased opacity for better visibility */
-  border: 1px solid var(--primary-color);
-  color: var(--text-color);
-}
-.form-control:focus, .form-select:focus {
-  background-color: rgba(255, 255, 255, 0.3); /* Further increase contrast on focus */
-  border-color: var(--accent-color-bold);
-  box-shadow: 0 0 0 0.25rem rgba(255, 204, 0, 0.5); 
-  color: var(--text-color);
-}
-
-/* Text Colors */
-.text-primary { color: var(--primary-color) !important; }
-.text-accent-bold { color: var(--accent-color-bold) !important; }
-.text-light, .text-secondary { color: var(--secondary-color) !important; }
-
-/* Hero Section Styles */
-.hero-section {
-    background-color: var(--primary-color);
-    border-bottom: 5px solid var(--accent-color-bold);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    padding: 80px 0;
-    margin-bottom: 40px;
-    animation: fadeIn 1.5s ease-out forwards; /* Fade in Hero */
-}
-
-.hero-btn {
-    font-size: 1.2rem;
-    padding: 12px 30px;
-    border: 2px solid var(--accent-color-bold) !important;
-    background-color: var(--primary-color) !important;
-    color: var(--secondary-color) !important;
-    transition: all 0.3s;
-}
-
-.hero-btn:hover {
-    background-color: var(--accent-color-bold) !important;
-    color: var(--dark-bg) !important;
-    border-color: var(--secondary-color) !important;
-    transform: scale(1.05);
-}
-
-.form-control.city-input {
-    border-left: 5px solid var(--accent-color-bold);
-}
-
-/* Badge Pulse for Cart */
-.pulse-animation {
-    animation: pulse 1s infinite;
-}
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-}
-
-/* Ensure all links and buttons are visible */
-a, button {
-    font-weight: 600 !important;
-}
-
-.list-group-item {
-    border-color: rgba(255, 255, 255, 0.2) !important; /* Lighter border for better separation */
-}/* src/index.css - Modern Professional UI (Electric Blue Theme) with Infinite Animation */
+/* src/index.css - Light Mode Professional UI (Purple Gradient Theme) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
 
 :root {
-  --primary-color: #007BFF;      /* Electric Blue (Primary Accent) */
-  --secondary-color: #FFFFFF;    /* White */
-  --accent-color-bold: #17A2B8;  /* Cyan/Teal (Secondary Accent) */
-  --dark-bg: #121212;           /* Deep Black/Dark Gray */
-  --card-bg: #1F1F1F;           /* Slightly Lighter Dark Gray for Cards */
-  --text-color: var(--secondary-color);
+  --primary-color: #6A0DAD;      /* Deep Royal Purple (Primary Accent) */
+  --secondary-color: #D3A5EE;    /* Light Lavender/Purple (Secondary Accent) */
+  --accent-color-bold: #FF4500;  /* Bright Orange-Red (High Contrast Highlight) */
+  --light-bg: #FFFFFF;           /* Pure White Background */
+  --card-bg: #F8F8FF;           /* Very Light Off-White/Lavender for Cards */
+  --text-color-dark: #212529;    /* Dark Text (High Contrast) */
+  --text-color-light: var(--light-bg);
   --error-color: #DC3545;
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--dark-bg);
-  color: var(--text-color);
+  background-color: var(--light-bg);
+  color: var(--text-color-dark);
   overflow-x: hidden;
 }
 
-/* --- INFINITE BACKGROUND ANIMATION (Subtle Tech Grid) --- */
+/* --- ROOT STYLES --- */
 #root {
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  background: radial-gradient(circle at center, #1e1e1e 0%, var(--dark-bg) 70%);
+  /* Subtle radial gradient hint of purple */
+  background: radial-gradient(circle at 10% 10%, rgba(211, 165, 238, 0.2) 0%, rgba(255, 255, 255, 0) 50%);
   z-index: 1;
 }
 
-/* Abstract animation for a high-tech/professional feel */
-#root::after {
-    content: '';
-    position: absolute;
+/* --- FULL-PAGE LOADING OVERLAY --- */
+.loading-overlay {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 200%;
-    height: 200%;
-    background-image: 
-        radial-gradient(rgba(0, 123, 255, 0.4) 1px, transparent 0),
-        radial-gradient(rgba(23, 162, 184, 0.1) 1px, transparent 0);
-    background-size: 100px 100px;
-    opacity: 0.1;
-    animation: moveBackground 150s linear infinite; /* Very slow, infinite move */
-    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: var(--light-bg); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
 }
 
-@keyframes moveBackground {
-    from { transform: translate(0, 0); }
-    to { transform: translate(-100%, -100%); }
+.loading-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-text {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    animation: pulseText 1.5s infinite;
+}
+
+@keyframes pulseText {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
 }
 
 /* Custom Bootstrap Overrides */
 .navbar {
-  background-color: rgba(31, 31, 31, 0.95) !important;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
-  border-bottom: 2px solid var(--primary-color);
+  background-color: var(--card-bg) !important;
+  border-bottom: 3px solid var(--primary-color);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--text-color-dark) !important;
 }
 
 .nav-link:hover {
@@ -222,26 +80,28 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--primary-color) !important;
-  border-color: var(--primary-color) !important;
-  font-weight: 500;
-  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  /* Purple Gradient Button */
+  background: linear-gradient(90deg, var(--primary-color) 0%, #B685E5 100%) !important;
+  border: none !important;
+  color: var(--text-color-light) !important;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(106, 13, 173, 0.3);
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background-color: #0090FF !important; 
-  border-color: #0090FF !important;
+  background: linear-gradient(90deg, #5A009C 0%, var(--primary-color) 100%) !important; 
   transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(0, 123, 255, 0.6);
+  box-shadow: 0 8px 15px rgba(106, 13, 173, 0.5);
 }
 
 /* Card Fade-In and Hover Effect */
 .card {
   background-color: var(--card-bg);
-  color: var(--text-color);
-  border: 1px solid #333;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  color: var(--text-color-dark);
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: fadeIn 0.8s ease-out forwards; 
   animation-delay: var(--animation-delay, 0s);
@@ -249,7 +109,7 @@ body {
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 123, 255, 0.4); /* Blue glow on hover */
+  box-shadow: 0 10px 20px rgba(106, 13, 173, 0.2); 
 }
 
 /* Fade In Keyframe */
@@ -260,45 +120,61 @@ body {
 
 /* Hero Section Styles */
 .hero-section {
-    background: linear-gradient(90deg, #121212, #252525 50%, #121212);
-    border-bottom: 3px solid var(--primary-color);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+    /* Purple Gradient Hero */
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-bottom: 4px solid var(--accent-color-bold);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    color: var(--text-color-light);
     padding: 100px 0;
     margin-bottom: 40px;
     animation: fadeIn 1.5s ease-out forwards;
 }
 
+.hero-section h1, .hero-section p {
+    color: var(--text-color-light) !important;
+}
+
 .hero-btn {
-    border: 1px solid var(--accent-color-bold) !important;
+    border: 2px solid var(--text-color-light) !important;
     background-color: transparent !important;
-    color: var(--accent-color-bold) !important;
-    font-weight: 600;
+    color: var(--text-color-light) !important;
+    font-weight: 700;
 }
 
 .hero-btn:hover {
-    background-color: var(--accent-color-bold) !important;
-    color: var(--dark-bg) !important;
+    background-color: var(--text-color-light) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Filter/Form Container */
+.filter-container {
+    background-color: var(--card-bg) !important;
+    border: 1px solid #E0E0E0 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* Form Styling - High Visibility */
 .form-control, .form-select, .form-range {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid #333;
-  color: var(--text-color);
+  background-color: var(--light-bg);
+  border: 1px solid #CED4DA;
+  color: var(--text-color-dark);
 }
 .form-control:focus, .form-select:focus {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: var(--light-bg);
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.3); 
-  color: var(--text-color);
+  box-shadow: 0 0 0 0.25rem rgba(106, 13, 173, 0.3); 
+  color: var(--text-color-dark);
 }
 
 /* Text & Colors */
 .text-primary { color: var(--primary-color) !important; }
 .text-accent-bold { color: var(--accent-color-bold) !important; }
-.text-muted { color: #AAAAAA !important; }
+.text-light { color: var(--text-color-light) !important; }
+.text-muted { color: #6C757D !important; } /* Darker muted text for high contrast on white */
 
+/* List Group/Cart Items */
 .list-group-item {
     background-color: var(--card-bg) !important;
-    border-color: #333 !important;
+    border-color: #E0E0E0 !important;
+    color: var(--text-color-dark) !important;
 }

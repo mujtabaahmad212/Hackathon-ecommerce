@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { FaGem, FaShippingFast } from 'react-icons/fa';
-import { BiBot } from 'react-icons/bi'; // New AI icon
+import { FaShippingFast, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { BiBot } from 'react-icons/bi'; 
 
 // Simulated AI Assistant function 
 const assistantRefineDescription = (title) => {
@@ -14,7 +14,7 @@ const assistantRefineDescription = (title) => {
   return descriptions[randomIndex];
 };
 
-// Local Delivery Estimate Function (English terms)
+// Local Delivery Estimate Function
 const getDeliveryEstimate = (city) => {
     const cityLower = city.toLowerCase();
     if (cityLower.includes('karachi') || cityLower.includes('lahore') || cityLower.includes('islamabad')) {
@@ -25,13 +25,17 @@ const getDeliveryEstimate = (city) => {
     return "";
 }
 
+// CONSTANT FOR SHORT DESCRIPTION LENGTH
+const SHORT_DESCRIPTION_LENGTH = 70;
+
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
   const [currentDescription, setCurrentDescription] = useState(product.description);
   const [deliveryCity, setDeliveryCity] = useState('');
   const [deliveryEstimate, setDeliveryEstimate] = useState('');
   
-  // Keep PKR conversion
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  
   const pricePKR = (product.price * 280).toFixed(0);
 
   const handleRefineDescription = () => {
@@ -42,10 +46,18 @@ export default function ProductCard({ product }) {
   const handleCheckDelivery = () => {
       setDeliveryEstimate(getDeliveryEstimate(deliveryCity));
   };
+  
+  const shortDescription = currentDescription.length > SHORT_DESCRIPTION_LENGTH 
+    ? currentDescription.substring(0, SHORT_DESCRIPTION_LENGTH) + '...'
+    : currentDescription;
+    
+  const toggleDescription = () => {
+      setIsDescriptionExpanded(!isDescriptionExpanded);
+  };
 
   return (
     <div className="card h-100 overflow-hidden">
-      <div className="p-3 text-center" style={{ height: '200px', backgroundColor: '#333' }}>
+      <div className="p-3 text-center" style={{ height: '200px', backgroundColor: '#E0E0E0' }}>
         <img
           src={product.image}
           className="card-img-top h-100"
@@ -57,7 +69,30 @@ export default function ProductCard({ product }) {
       </div>
       <div className="card-body d-flex flex-column">
         <h5 className="card-title text-primary fw-bold text-truncate">{product.title}</h5>
-        <p className="card-text text-muted text-truncate">{currentDescription}</p> 
+        
+        {/* Shortened Description Display */}
+        <p className="card-text text-muted mb-2">
+            {isDescriptionExpanded ? currentDescription : shortDescription}
+        </p>
+        
+        {/* Toggle Button for Read More/Less */}
+        {currentDescription.length > SHORT_DESCRIPTION_LENGTH && (
+            <button 
+                className="btn btn-link btn-sm p-0 text-accent-bold text-start mb-3"
+                onClick={toggleDescription}
+                style={{ textDecoration: 'none' }}
+            >
+                {isDescriptionExpanded ? (
+                    <>
+                        <FaChevronUp size={10} className="me-1"/> Read Less
+                    </>
+                ) : (
+                    <>
+                        <FaChevronDown size={10} className="me-1"/> Read More
+                    </>
+                )}
+            </button>
+        )}
         
         {/* Delivery Estimation Feature */}
         <div className="mt-auto pt-3 border-top border-secondary-custom">
@@ -92,7 +127,7 @@ export default function ProductCard({ product }) {
             🛒 Add to Cart
         </button>
         <button
-            className="btn btn-outline-light w-100 btn-sm"
+            className="btn btn-outline-dark w-100 btn-sm"
             onClick={handleRefineDescription}
         >
             <BiBot className="me-1 text-primary"/> AI Assistant Refine

@@ -79,7 +79,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const getTotalPrice = () => {
-    // Convert USD to a rough PKR equivalent for demonstration (e.g., USD 1 = PKR 280)
+    // PKR Conversion Rate (PKR 280 per USD)
     const totalUSD = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
     return totalUSD * 280; 
   };
