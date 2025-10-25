@@ -1,28 +1,28 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { FaGem, FaShippingFast } from 'react-icons/fa';
+import { BiBot } from 'react-icons/bi'; // New AI icon
 
-// Simulated Ustad (AI) function 
-const ustadRefineDescription = (title) => {
-  const suffixes = [
-    `Ustad-approved: This ${title} is pure khareedari (shopping) delight! A must-have for your home.`,
-    `A gift from the Ustad: The revolutionary ${title}. Crafted with desi (local) love and global tech.`,
-    `This ${title} is not just an item, it's a shaan (pride). Bold design meets local functionality.`,
-    `As recommended by Ustad: The ultimate ${title} has arrived. Engineered for peak performance and durability.`,
+// Simulated AI Assistant function 
+const assistantRefineDescription = (title) => {
+  const descriptions = [
+    `AI Optimized: This ${title} is a professional choice. Experience superior quality and lasting performance.`,
+    `Recommended by the Assistant: The innovative ${title} offers the best features in its class.`,
+    `Certified Excellence: Get the reliable ${title} today. Engineered for precision and modern needs.`,
   ];
-  const randomIndex = Math.floor(Math.random() * suffixes.length);
-  return suffixes[randomIndex];
+  const randomIndex = Math.floor(Math.random() * descriptions.length);
+  return descriptions[randomIndex];
 };
 
-// Local Delivery Estimate Function
+// Local Delivery Estimate Function (English terms)
 const getDeliveryEstimate = (city) => {
     const cityLower = city.toLowerCase();
     if (cityLower.includes('karachi') || cityLower.includes('lahore') || cityLower.includes('islamabad')) {
-        return "1-3 din (days) 🚚";
+        return "1-3 Days 🚚";
     } else if (cityLower.length > 2) {
-        return "3-5 din (days) 📦";
+        return "3-5 Days 📦";
     }
-    return ""; // Empty string when no city is entered
+    return "";
 }
 
 export default function ProductCard({ product }) {
@@ -31,10 +31,11 @@ export default function ProductCard({ product }) {
   const [deliveryCity, setDeliveryCity] = useState('');
   const [deliveryEstimate, setDeliveryEstimate] = useState('');
   
+  // Keep PKR conversion
   const pricePKR = (product.price * 280).toFixed(0);
 
   const handleRefineDescription = () => {
-    const newDescription = ustadRefineDescription(product.title);
+    const newDescription = assistantRefineDescription(product.title);
     setCurrentDescription(newDescription);
   };
   
@@ -43,9 +44,8 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    // The animation class is applied via CSS globally to the .card element
-    <div className="card h-100 overflow-hidden truck-art-border">
-      <div className="p-3 text-center" style={{ height: '200px' }}>
+    <div className="card h-100 overflow-hidden">
+      <div className="p-3 text-center" style={{ height: '200px', backgroundColor: '#333' }}>
         <img
           src={product.image}
           className="card-img-top h-100"
@@ -56,46 +56,47 @@ export default function ProductCard({ product }) {
         />
       </div>
       <div className="card-body d-flex flex-column">
-        <h5 className="card-title text-accent-bold fw-bold text-truncate">{product.title}</h5>
-        <p className="card-text text-truncate text-secondary opacity-75">{currentDescription}</p> 
-        <div className="mt-auto pt-3 border-top border-secondary-custom opacity-50">
-          <p className="fw-bolder fs-4 text-light">PKR {pricePKR}</p>
+        <h5 className="card-title text-primary fw-bold text-truncate">{product.title}</h5>
+        <p className="card-text text-muted text-truncate">{currentDescription}</p> 
+        
+        {/* Delivery Estimation Feature */}
+        <div className="mt-auto pt-3 border-top border-secondary-custom">
+            <div className="input-group input-group-sm mb-1">
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="City Name"
+                    value={deliveryCity}
+                    onChange={(e) => setDeliveryCity(e.target.value)}
+                />
+                <button 
+                    className="btn btn-primary" 
+                    type="button"
+                    onClick={handleCheckDelivery}
+                    title="Check Delivery"
+                >
+                    <FaShippingFast />
+                </button>
+            </div>
+            <p className={`small fw-bold mb-3 ${deliveryEstimate ? 'text-accent-bold' : 'text-muted'}`}>
+                Shipping: {deliveryEstimate || "Check Delivery Time"}
+            </p>
+        </div>
+
+        <p className="fw-bolder fs-4 text-accent-bold mt-2">PKR {pricePKR}</p>
           
-          {/* Delivery Estimation Feature */}
-          <div className="input-group input-group-sm mb-1">
-            <input
-                type="text"
-                className="form-control city-input"
-                placeholder="Shehar Naam (City)"
-                value={deliveryCity}
-                onChange={(e) => setDeliveryCity(e.target.value)}
-            />
-            <button 
-                className="btn btn-primary" 
-                type="button"
-                onClick={handleCheckDelivery}
-                title="Check Delivery"
-            >
-                <FaShippingFast />
-            </button>
-          </div>
-          <p className={`text-${deliveryEstimate ? 'primary' : 'muted'} small fw-bold mb-3`}>
-              Delivery: {deliveryEstimate || "Check Delivery Time"}
-          </p>
-          
-          <button
+        <button
             className="btn btn-primary w-100 mb-2"
             onClick={() => addToCart(product)}
-          >
-            🛒 Khareedain (Buy)
-          </button>
-          <button
+        >
+            🛒 Add to Cart
+        </button>
+        <button
             className="btn btn-outline-light w-100 btn-sm"
             onClick={handleRefineDescription}
-          >
-            <FaGem className="me-1 text-primary"/> Ustad Refines
-          </button>
-        </div>
+        >
+            <BiBot className="me-1 text-primary"/> AI Assistant Refine
+        </button>
       </div>
     </div>
   );

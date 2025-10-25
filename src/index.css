@@ -158,4 +158,147 @@ a, button {
 
 .list-group-item {
     border-color: rgba(255, 255, 255, 0.2) !important; /* Lighter border for better separation */
+}/* src/index.css - Modern Professional UI (Electric Blue Theme) with Infinite Animation */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
+
+:root {
+  --primary-color: #007BFF;      /* Electric Blue (Primary Accent) */
+  --secondary-color: #FFFFFF;    /* White */
+  --accent-color-bold: #17A2B8;  /* Cyan/Teal (Secondary Accent) */
+  --dark-bg: #121212;           /* Deep Black/Dark Gray */
+  --card-bg: #1F1F1F;           /* Slightly Lighter Dark Gray for Cards */
+  --text-color: var(--secondary-color);
+  --error-color: #DC3545;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  overflow-x: hidden;
+}
+
+/* --- INFINITE BACKGROUND ANIMATION (Subtle Tech Grid) --- */
+#root {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #1e1e1e 0%, var(--dark-bg) 70%);
+  z-index: 1;
+}
+
+/* Abstract animation for a high-tech/professional feel */
+#root::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background-image: 
+        radial-gradient(rgba(0, 123, 255, 0.4) 1px, transparent 0),
+        radial-gradient(rgba(23, 162, 184, 0.1) 1px, transparent 0);
+    background-size: 100px 100px;
+    opacity: 0.1;
+    animation: moveBackground 150s linear infinite; /* Very slow, infinite move */
+    z-index: -1;
+}
+
+@keyframes moveBackground {
+    from { transform: translate(0, 0); }
+    to { transform: translate(-100%, -100%); }
+}
+
+/* Custom Bootstrap Overrides */
+.navbar {
+  background-color: rgba(31, 31, 31, 0.95) !important;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.nav-link:hover {
+  color: var(--primary-color) !important;
+}
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #0090FF !important; 
+  border-color: #0090FF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 123, 255, 0.6);
+}
+
+/* Card Fade-In and Hover Effect */
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.8s ease-out forwards; 
+  animation-delay: var(--animation-delay, 0s);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 123, 255, 0.4); /* Blue glow on hover */
+}
+
+/* Fade In Keyframe */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero Section Styles */
+.hero-section {
+    background: linear-gradient(90deg, #121212, #252525 50%, #121212);
+    border-bottom: 3px solid var(--primary-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+    padding: 100px 0;
+    margin-bottom: 40px;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+.hero-btn {
+    border: 1px solid var(--accent-color-bold) !important;
+    background-color: transparent !important;
+    color: var(--accent-color-bold) !important;
+    font-weight: 600;
+}
+
+.hero-btn:hover {
+    background-color: var(--accent-color-bold) !important;
+    color: var(--dark-bg) !important;
+}
+
+/* Form Styling - High Visibility */
+.form-control, .form-select, .form-range {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #333;
+  color: var(--text-color);
+}
+.form-control:focus, .form-select:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.3); 
+  color: var(--text-color);
+}
+
+/* Text & Colors */
+.text-primary { color: var(--primary-color) !important; }
+.text-accent-bold { color: var(--accent-color-bold) !important; }
+.text-muted { color: #AAAAAA !important; }
+
+.list-group-item {
+    background-color: var(--card-bg) !important;
+    border-color: #333 !important;
 }

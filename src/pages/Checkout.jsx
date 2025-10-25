@@ -24,7 +24,7 @@ export default function Checkout() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Aapka order PKR ${totalPricePKR} ka lag gaya hai! Aapki delivery Aarahi Hai.`);
+    alert(`Your order for PKR ${totalPricePKR} has been placed successfully!`);
     clearCart();
     navigate('/');
   };
@@ -38,11 +38,11 @@ export default function Checkout() {
     <div className="container py-5">
       <div className="row g-4">
         <div className="col-md-6">
-          <h2 className="mb-4 text-primary border-bottom pb-2">Delivery Pata (Address)</h2>
+          <h2 className="mb-4 text-primary border-bottom pb-2">Shipping Information</h2>
           <div className="card p-4">
              <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label htmlFor="name" className="form-label">Poora Naam (Full Name)</label>
+                <label htmlFor="name" className="form-label">Full Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -66,7 +66,7 @@ export default function Checkout() {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="address" className="form-label">Gali/Mohalla (Street Address)</label>
+                <label htmlFor="address" className="form-label">Street Address</label>
                 <textarea
                   className="form-control"
                   id="address"
@@ -78,7 +78,7 @@ export default function Checkout() {
               </div>
               <div className="row g-3">
                 <div className="col-md-8">
-                  <label htmlFor="city" className="form-label">Shehar (City)</label>
+                  <label htmlFor="city" className="form-label">City</label>
                   <input
                     type="text"
                     className="form-control"
@@ -103,18 +103,18 @@ export default function Checkout() {
                 </div>
               </div>
               <button type="submit" className="btn btn-primary btn-lg w-100 mt-4">
-                🚚 Order De Dein - PKR {totalPricePKR}
+                🚚 Place Order - PKR {totalPricePKR}
               </button>
             </form>
           </div>
         </div>
         <div className="col-md-6">
-          <h2 className="mb-4 text-primary border-bottom pb-2">Hisaab (Bill)</h2>
+          <h2 className="mb-4 text-primary border-bottom pb-2">Order Details</h2>
           <div className="card p-4 sticky-top" style={{ top: '80px' }}>
-            <h5 className="card-title mb-3 text-accent-bold">Items ({items.length})</h5>
+            <h5 className="card-title mb-3 text-primary">Items ({items.length})</h5>
             <ul className="list-group list-group-flush border-bottom mb-3" style={{ maxHeight: '400px', overflowY: 'auto' }}>
               {items.map(item => (
-                <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center bg-transparent text-light border-secondary">
+                <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center text-light">
                   <span className="text-truncate me-2">{item.title}</span>
                   <span className="fw-light">× {item.quantity}</span>
                   <span className="ms-auto fw-bold text-accent-bold">PKR {(item.price * item.quantity * 280).toFixed(0)}</span>
@@ -122,7 +122,7 @@ export default function Checkout() {
               ))}
             </ul>
             <div className="d-flex justify-content-between fw-bolder fs-3">
-              <span>Kul Rakum (Grand Total):</span>
+              <span>Grand Total:</span>
               <span className="text-primary">PKR {totalPricePKR}</span>
             </div>
           </div>
